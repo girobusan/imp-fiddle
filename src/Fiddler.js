@@ -16,6 +16,12 @@ export class Fiddler extends Component{
     this.cssEditor = createRef();
     this.jsEditor = createRef();
     this.htmlEditor = createRef();
+    this.state = { 
+      html: props.html || "",
+      js: props.js || "",
+      css: props.css || "",
+
+    }
     
   }
   render(){
@@ -28,6 +34,7 @@ export class Fiddler extends Component{
              <div class="editorContainer" id="css" ref=${this.cssEditor}>
                <h3>CSS</h3>
                <${CodeEditor} 
+               value=${this.state.css}
                handler=${this.makeHandler('css')}
                lang="css" />
              </div>
@@ -35,12 +42,14 @@ export class Fiddler extends Component{
 
                <h3>HTML</h3>
                <${CodeEditor} 
+               value=${this.state.html}
                handler=${this.makeHandler('html')}
                lang="html" />
              </div>
              <div class="editorContainer" id="js" ref=${this.jsEditor}>
                <h3>Java Script</h3>
                <${CodeEditor} 
+               value=${this.state.js}
                handler=${this.makeHandler('js')}
                lang="js" />
              </div>
@@ -67,7 +76,8 @@ export class Fiddler extends Component{
   }
   componentDidMount(){
     Split( [ this.cssEditor.current , this.htmlEditor.current , this.jsEditor.current ] );
-    Split( [this.editors.current , this.preview.current] , {direction: 'vertical'} )
+    Split( [this.editors.current , this.preview.current] , {direction: 'vertical'} );
+    this.renderPreview();
   }
   renderPreview(){
      this.preview.current.srcdoc = `<html><head><style>${this.state.css || ""}</style>

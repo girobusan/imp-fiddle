@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <title>Imp Fiddle</title>
   <script>
+
+  window.settings = {
+      filename: "index.html",
+      title: "Imp Fiddle",
+
+  }
+  </script>
+  <script>
   //test script
   window.addEventListener(
   "DOMContentLoaded" , 
@@ -25,9 +33,14 @@
   </script>
   <script id="customJS"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style id="customCSS"></style>
+<style id="customCSS">
+body{
+  background-color: ivory;
+  color: slategray;
+}
+</style>
 </head>
 <body>
- <script id="htmlSource" type="text/html"></script>
+ <script id="htmlSource" type="text/html">This one is lorem ipsum</script>
 </body>
 </html>

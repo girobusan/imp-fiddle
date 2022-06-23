@@ -8,7 +8,7 @@
     "cssbuild": "npx sass src/scss/core.scss:dist/style.css --style compressed",
     "build": "npx webpack --mode production",
     "watch": "npx webpack --mode development",
-    "postbuild": "shx rm dist/loader.js dist/*.map"
+    "postbuild": "shx rm dist/*.map"
   },
   "author": "",
   "license": "ISC",
