@@ -14,7 +14,10 @@ export class CodeEditor extends Component{
   }
 
   componentDidMount(){
-    this.editor = CodeJar(this.container.current , e=>Prism.highlightElement(e) , {tab: '  '});
+    this.editor = CodeJar(this.container.current , 
+    e=>Prism.highlightElement(e) , {tab: '  '});
+    //
+    this.editor.onUpdate(e=>this.props.handler(e));
   }
 
   render(){

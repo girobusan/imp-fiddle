@@ -27,16 +27,22 @@ export class Fiddler extends Component{
           <div class="split horizontal" id="editors" ref=${this.editors}>
              <div class="editorContainer" id="css" ref=${this.cssEditor}>
                <h3>CSS</h3>
-               <${CodeEditor} lang="css" />
+               <${CodeEditor} 
+               handler=${this.makeHandler('css')}
+               lang="css" />
              </div>
              <div class="editorContainer" id="html" ref=${this.htmlEditor}>
 
                <h3>HTML</h3>
-               <${CodeEditor} lang="html" />
+               <${CodeEditor} 
+               handler=${this.makeHandler('html')}
+               lang="html" />
              </div>
              <div class="editorContainer" id="js" ref=${this.jsEditor}>
                <h3>Java Script</h3>
-               <${CodeEditor} lang="js" />
+               <${CodeEditor} 
+               handler=${this.makeHandler('js')}
+               lang="js" />
              </div>
           </div>
 
@@ -45,11 +51,27 @@ export class Fiddler extends Component{
      </div>
      </div>`
   }
+  makeHandler(name, initValue){
+     
+     const f = (v)=> { console.log(name, v)  ; 
+     const c = {} ;
+     c[name]=v ;
+     this.setState(c) } ;
+
+     f.bind(this);
+     return f;
+
+  }
+  componentDidUpdate(){
+    this.renderPreview();
+  }
   componentDidMount(){
     Split( [ this.cssEditor.current , this.htmlEditor.current , this.jsEditor.current ] );
     Split( [this.editors.current , this.preview.current] , {direction: 'vertical'} )
   }
   renderPreview(){
-     this.preview.current.srcdoc = "render preview"
+     this.preview.current.srcdoc = `<html><head><style>${this.state.css || ""}</style>
+     <script>${this.state.js || ""}</script>
+     </head><body>${this.state.html || ""}</body></html>`
   }
 }
