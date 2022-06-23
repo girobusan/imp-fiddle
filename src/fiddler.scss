@@ -36,7 +36,7 @@ body, html{
     h3{
       position: absolute;
       color: white;
-      opacity: .2;
+      opacity: .3;
       z-index: 10;
       font-size: 14px;
       font-weight: normal;
@@ -57,6 +57,12 @@ body, html{
   height: 64px;
   background-color: #666;
   color: white;
+  padding: 16px;
+  input[type=button]{
+    height: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .split {

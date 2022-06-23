@@ -26,7 +26,9 @@ export class Fiddler extends Component{
   }
   render(){
      return html`<div class="Fiddler">
-     <div id="toolbar"></div>
+     <div id="toolbar">
+  <input type="button" value="Save"></input>
+     </div>
 
      <div class="split vertical" id="mainContainer" ref=${this.mainContainer}>
          
