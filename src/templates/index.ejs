@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Imp Fiddle</title>
+  <script>
+  //test script
+  window.addEventListener(
+  "DOMContentLoaded" , 
+  function(){
+      const p = window.location.protocol;
+      const wn = self.window.name;
+      console.log("Loaded, proto" , p , "window name" , wn)
+
+      if(p=='file:'){
+          console.log("Loading editor, stage 0")
+         
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+         
+      }
+
+      })
+  </script>
+  <script id="customJS"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="customCSS"></style>
+</head>
+<body>
+ <script id="htmlSource" type="text/html"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+import {Component , createRef} from "preact";
+import { useRef } from "preact/hooks";
+import {html} from "htm/preact";
+import Split from "split.js";
+import {CodeEditor} from "./CodeEditor";
+require("./fiddler.scss")
+
+
+export class Fiddler extends Component{
+  constructor(props){
+    super(props);
+    console.log("Props" , props);
+    this.mainContainer = createRef();
+    this.editors = createRef();
+    this.preview = createRef();
+    this.cssEditor = createRef();
+    this.jsEditor = createRef();
+    this.htmlEditor = createRef();
+    
+  }
+  render(){
+     return html`<div class="Fiddler">
+     <div id="toolbar"></div>
+
+     <div class="split vertical" id="mainContainer" ref=${this.mainContainer}>
+         
+          <div class="split horizontal" id="editors" ref=${this.editors}>
+             <div class="editorContainer" id="css" ref=${this.cssEditor}>
+               <h3>CSS</h3>
+               <${CodeEditor} lang="css" />
+             </div>
+             <div class="editorContainer" id="html" ref=${this.htmlEditor}>
+
+               <h3>HTML</h3>
+               <${CodeEditor} lang="html" />
+             </div>
+             <div class="editorContainer" id="js" ref=${this.jsEditor}>
+               <h3>Java Script</h3>
+               <${CodeEditor} lang="js" />
+             </div>
+          </div>
+
+          <iframe ref=${this.preview}></iframe>
+
+     </div>
+     </div>`
+  }
+  componentDidMount(){
+    Split( [ this.cssEditor.current , this.htmlEditor.current , this.jsEditor.current ] );
+    Split( [this.editors.current , this.preview.current] , {direction: 'vertical'} )
+  }
+  renderPreview(){
+     this.preview.current.srcdoc = "render preview"
+  }
+}
