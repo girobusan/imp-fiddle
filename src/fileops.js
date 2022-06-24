@@ -23,18 +23,24 @@ export function toHTML(
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
-      const wn = self.window.name;
-      if(window.location.hash=="#view"){
+      if(window.location.hash==="#view"){
         return;
       }
-      if(p=="file:" || window.location.hash=="#edit"){
-          console.log("Loading editor...")
+      if(p.startsWith("http") && 
+        window.settings.webViewed==="result" &&
+        window.location.hash !== "#edit"
+        ){
+        return;
+      }
+
+      if(p=='file:' || window.location.hash=="#edit"){
+          console.log("Loading editor")
           const s = document.createElement("script");
-          s.src =  "${settings.editor() || 'fiddler.js'}"
+          s.src =  'fiddler.js'
           document.head.appendChild(s);
       }
 
-      })
+})
   </script>
   <script id="customJS">${js}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

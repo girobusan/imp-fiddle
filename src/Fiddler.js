@@ -57,14 +57,21 @@ export class Fiddler extends Component{
      ></input>
      <input type="checkbox"
      checked=${this.props.settings.autoRun()}
-     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked)}  }
+     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked) ; this.renderPreview()}  }
      ></input><label>Auto run</label>
      </div>
 
      <div id="otherTools">
    <input type="button" 
    onclick=${()=>this.setState({showSettings: !this.state.showSettings})}
-   value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}></input>
+   value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}
+   style=${{marginRight: "16px"}}
+   ></input>
+   <input type="button" value="View Mode"
+   onclick=${e=>window.location="#view"}
+   ></input>
+
+
      </div>
 
      </div>

@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3</title>
+  <meta name="description" content="This is the test of d3 in Imp Fiddler...">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js" integrity="sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  window.settings = {
+  "title": "D3",
+  "description": "This is the test of d3 in Imp Fiddler...",
+  "image": "",
+  "filename": "d3_test.html",
+  "headHTML": "&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js\" integrity=\"sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"&gt;&lt;/script&gt;",
+  "author": "",
+  "keywords": "",
+  "autoRun": true,
+  "editor": "",
+  "webViewed": "result"
+}
+  </script>
+  <script>
+  window.addEventListener("hashchange" , ()=>history.go(0));
+  window.addEventListener(
+  "DOMContentLoaded" , 
+  function(){
+      const p = window.location.protocol;
+      if(window.location.hash==="#view"){
+        return;
+      }
+      if(p.startsWith("http") && 
+        window.settings.webViewed==="result" &&
+        window.location.hash !== "#edit"
+        ){
+        return;
+      }
+
+      if(p=='file:' || window.location.hash=="#edit"){
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+      }
+
+})
+  </script>
+  <script id="customJS">function draw(){
+   const c = d3.select("#viz").append("svg");
+   c.attr("width" , 600).attr("height" , 400);
+   c.append("rect").attr("width" , 600).attr("height" , 400)
+   .attr("fill" , "royalblue");
+   
+   const xScale = d3.scaleLinear()
+   .range([0,600])
+   .domain([0,1])
+   ;
+   
+    const yScale = d3.scaleLinear()
+   .range([0,400])
+   .domain([0,1])
+   ;
+   
+   for(let x=0 ; x <100 ; x++){
+     const X = Math.random();
+     const Y = Math.random();
+     c.append("circle")
+     .attr("cx" , xScale(X))
+     .attr("cy" , yScale(Y))
+     .attr("fill" , "white")
+     .attr("r" , Math.random()*100)
+     .attr("opacity" , .2)
+   }
+  
+}
+
+window.addEventListener("load" , draw)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="customCSS">
+body{
+  background-color: ivory;
+  color: #333;
+}
+
+#container{
+  width: 600px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+<div id="container">
+<h1>D3 test</h1>
+<p>Test of d3</p>
+<div id="viz"></div> 
+<p>You may want to see this page in <a href="#edit">edit mode</a></p>
+</div> 
+ <script id="htmlSource" type="text/html">&lt;div id="container"&gt;
+&lt;h1&gt;D3 test&lt;/h1&gt;
+&lt;p&gt;Test of d3&lt;/p&gt;
+&lt;div id="viz"&gt;&lt;/div&gt; 
+&lt;p&gt;You may want to see this page in &lt;a href="#edit"&gt;edit mode&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt; </script>
+</body>
+</html>
