@@ -11,6 +11,7 @@ const props = [
    "keywords",
    "autoRun",
    "editor",
+   "webViewed"
    ]
 var callback ;
 
@@ -42,6 +43,7 @@ function createWrapper(){
    props.forEach( p=>{
       w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p] || "" )} ;  
       const ev = escapeTags(v);
+      console.log("EV" , p , ev);
       if(STORE[p]===ev){return w}
       STORE[p]=ev ; updated(p,v) ; return w }
    } )

@@ -100,6 +100,7 @@ body, html{
     }
     .left{
       padding-right: 16px;
+      margin-bottom: -1rem;
     }
     .right{
       flex-grow: 1.5;
@@ -114,18 +115,15 @@ body, html{
       flex-grow: 0;
 
     }
-    input, textarea{
+    input, textarea , select{
       width: 100%;
       margin-bottom: 1rem;
       font-size: inherit;
       border: none;
       padding: 8px;
       resize: none;
-      &:last-child{
-        margin-bottom: 0;
-      }
     }
-    input, textarea, .CodeEditor{
+    input, textarea, .CodeEditor, select{
       border-radius: 4px;
     }
     .CodeEditor{
@@ -136,6 +134,7 @@ body, html{
       flex-direction: column;
       .left{
         padding-right: 0;
+        margin-bottom: 0;
       }
       .right{
         min-height: 300px;
