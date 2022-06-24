@@ -24,6 +24,7 @@ body, html{
     iframe{
       flex-grow: 1;
       border: none;
+      height: 60%;
     }
   }
 
@@ -58,10 +59,19 @@ body, html{
   background-color: #666;
   color: white;
   padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   input[type=button]{
     height: 32px;
     padding-left: 16px;
     padding-right: 16px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    &.modified{
+      background-color: orangered;
+    }
   }
 }
 

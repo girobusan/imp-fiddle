@@ -8,19 +8,25 @@
   window.settings = {
       filename: "index.html",
       title: "Imp Fiddle",
+      autoRun: false
 
   }
   </script>
   <script>
   //test script
+  window.addEventListener("hashchange" , ()=>history.go(0));
   window.addEventListener(
+  
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
       const wn = self.window.name;
       console.log("Loaded, proto" , p , "window name" , wn)
+      if(window.location.hash=="#view"){
+        return;
+      }
 
-      if(p=='file:'){
+      if(p=='file:' || window.location.hash=="#edit"){
           console.log("Loading editor, stage 0")
          
           const s = document.createElement("script");

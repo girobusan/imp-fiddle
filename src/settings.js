@@ -1,4 +1,4 @@
-// import { escapeTags , unescapeTags } from "./fileops"
+ import { escapeTags , unescapeTags } from "./util"
 
 const STORE = {};
 const props = [
@@ -9,6 +9,7 @@ const props = [
    "headHTML", //html
    "author",
    "keywords",
+   "autoRun",
    "editor",
    ]
 var callback ;
