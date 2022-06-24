@@ -78,8 +78,15 @@ window.addEventListener("load" , draw)</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style id="customCSS">
 body{
-  background-color: #444;
+  background-color: #223;
   color: #fefefe;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#outer{
+  border-radius: 8px;
+  overflow: hidden;
+  height: 390px;
 }
 
 #container{
@@ -88,20 +95,22 @@ body{
 }
 a{
   color: lightblue !important;
-} 
+}
 </style>
 </head>
 <body>
 <div id="container">
 <h1>D3 test</h1>
 <p>Test of d3</p>
-<div id="viz"></div> 
+<div id="outer">
+<div id="viz"></div></div>
 <p>You may want to see this page in <a href="#edit">edit mode</a></p>
 </div> 
  <script id="htmlSource" type="text/html">&lt;div id="container"&gt;
 &lt;h1&gt;D3 test&lt;/h1&gt;
 &lt;p&gt;Test of d3&lt;/p&gt;
-&lt;div id="viz"&gt;&lt;/div&gt; 
+&lt;div id="outer"&gt;
+&lt;div id="viz"&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;You may want to see this page in &lt;a href="#edit"&gt;edit mode&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt; </script>
 </body>
