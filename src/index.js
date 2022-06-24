@@ -13,12 +13,12 @@ ls.forEach(e=>e.remove());
 //remove custom JS
 //save it's value
 const j = document.getElementById("customJS");
-const js =  j.innerHTML ;
+const js =  j.innerHTML.trim() ;
 j.remove();
 //remove custom CSS
 //save it's value
 const c= document.getElementById("customCSS")
-const css = c.innerHTML;
+const css = c.innerHTML.trim();
 c.remove();
 //load html source
 //save it's value
@@ -31,13 +31,10 @@ const settings = createSettings(window.settings || {});
 //remove everything inside BODY
 document.body.innerHTML = "<!--empty-->"
 //load editor 
-//    --- render it inside body
-
 
 const Editor = h(
    Fiddler,
    {css,js,html,settings}
-
 );
-
+//    --- render it inside body
 render(Editor, document.body)

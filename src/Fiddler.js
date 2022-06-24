@@ -3,6 +3,7 @@ import { useRef } from "preact/hooks";
 import { html } from "htm/preact";
 import Split from "split.js";
 import { CodeEditor } from "./CodeEditor";
+import { TheInput } from "./util";
 import { saveFile } from "./fileops";
 require("./fiddler.scss")
 
@@ -22,8 +23,13 @@ export class Fiddler extends Component{
       html: props.html || "",
       js: props.js || "",
       css: props.css || "",
-      settings: this.props.settings,
+      settings: props.settings,
       modified: false,
+      showSettings: false,
+      filename: props.settings.filename(),
+      title: props.settings.title(),
+      description: props.settings.description(),
+      headHTML: props.settings.headHTML(),
 
     }
     this.renderPreview = this.renderPreview.bind(this);
@@ -31,12 +37,16 @@ export class Fiddler extends Component{
   }
   render(){
     
-     return html`<div class="Fiddler">
+     return html`<div
+     class=${this.state.showSettings ? "Fiddler settings" : "Fiddler main"}>
      <div id="toolbar">
 
      <div id="immediateTools">
      <input type="button" value="Save" 
-     onclick=${()=>saveFile(this.props.settings , this.state.html , this.state.css , this.state.js )}
+     onclick=${()=>{ 
+     saveFile(this.props.settings , this.state.html , this.state.css , this.state.js ) ;
+     // this.setState({modified: false})
+     }}
      class=${this.state.modified ? "modified" : "regular"}
      style=${{marginRight: "16px"}}></input>
      <input type="button"
@@ -51,7 +61,9 @@ export class Fiddler extends Component{
      </div>
 
      <div id="otherTools">
-   <input type="button" value="Page Settings"></input>
+   <input type="button" 
+   onclick=${()=>this.setState({showSettings: !this.state.showSettings})}
+   value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}></input>
      </div>
 
      </div>
@@ -86,11 +98,41 @@ export class Fiddler extends Component{
           <iframe ref=${this.preview}></iframe>
 
      </div>
+     <div id="settingsContainer">
+     <h2>Settings</h2>
+               <div class="settingsPanel">
+               <div class="left">
+               <${TheInput} area=${false} name="filename" title="File name"
+               value=${this.state.filename}
+               handler=${this.makeHandler("filename")}
+               />
+               <${TheInput} area=${false} name="title" title="Page title"
+               value=${this.state.title}
+               handler=${this.makeHandler("title")}
+               />
+               <${TheInput} area=${true} name="description" 
+               title="Page description"
+               value=${this.state.description}
+               handler=${this.makeHandler("description")}
+               />
+               </div>
+               <div class="right" style=${{position:"relative"}}>
+               <label>Head HTML</label>
+               <div class="editor" style=${{position:"relative", flexGrow: 1}}>
+               <${CodeEditor} value=${this.state.headHTML} 
+               handler=${this.makeHandler("headHTML")}
+               lang="html" />
+               </div>
+               </div>
+               </div>
+     </div>
+
      </div>`
   }
   makeHandler(name, initValue){
      
-     const f = (v)=> { console.log(name, v)  ; 
+     const f = (v)=> { 
+     // console.log(name, v)  ; 
      const c = {} ;
      c["modified"] = true;
 
@@ -108,6 +150,7 @@ export class Fiddler extends Component{
       this.renderPreview();
     }
     this.props.settings.title(this.props.title || "")
+    .filename(this.state.filename)
     
   }
   componentDidMount(){
