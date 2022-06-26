@@ -30,7 +30,9 @@ export class Fiddler extends Component{
       title: props.settings.title(),
       description: props.settings.description(),
       headHTML: props.settings.headHTML(),
+      autoRun: props.settings.autoRun(),
       webViewed: props.settings.webViewed(),
+      editor: props.settings.editor(),
 
     }
     this.renderPreview = this.renderPreview.bind(this);
@@ -123,7 +125,11 @@ export class Fiddler extends Component{
                value=${this.state.description}
                handler=${this.makeHandler("description")}
                />
-               <label>Web behavior</label>
+               <${TheInput} area=${false} name="editor" title="Editor location"
+               value=${this.state.editor}
+               handler=${this.makeHandler("editor")}
+               />
+               <label>When viewed on the web:</label>
                <select onchange=${e=>this.makeHandler('webViewed')(e.target.value)}>
                    <option value="result" selected=${this.state.webViewed=='result'}>Show result only</option>
                    <option value="editor" selectd=${this.state.webViewed=='editor'}>Load editor</option>
@@ -169,6 +175,7 @@ export class Fiddler extends Component{
     .description(this.state.description)
     .headHTML(this.state.headHTML)
     .webViewed(this.state.webViewed)
+    .editor(this.state.editor)
     .autoRun(this.state.autoRun)
 
     
