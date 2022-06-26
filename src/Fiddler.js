@@ -4,6 +4,7 @@ import { html } from "htm/preact";
 import Split from "split.js";
 import { CodeEditor } from "./CodeEditor";
 import { TheInput } from "./util";
+import { If } from "./If";
 import { saveFile } from "./fileops";
 require("./fiddler.scss")
 
@@ -33,6 +34,7 @@ export class Fiddler extends Component{
       autoRun: props.settings.autoRun(),
       webViewed: props.settings.webViewed(),
       editor: props.settings.editor(),
+      image: props.settings.image(),
 
     }
     this.renderPreview = this.renderPreview.bind(this);
@@ -69,9 +71,11 @@ export class Fiddler extends Component{
    value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}
    style=${{marginRight: "16px"}}
    ></input>
+    <${If} condition=${!this.state.modified}>
    <input type="button" value="View Mode"
    onclick=${e=>window.location="#view"}
    ></input>
+    </${If}>
 
 
      </div>
@@ -125,14 +129,18 @@ export class Fiddler extends Component{
                value=${this.state.description}
                handler=${this.makeHandler("description")}
                />
+               <${TheInput} area=${false} name="image" title="Preview image adress"
+               value=${this.state.image}
+               handler=${this.makeHandler("image")}
+               />
                <${TheInput} area=${false} name="editor" title="Editor location"
                value=${this.state.editor}
                handler=${this.makeHandler("editor")}
                />
                <label>When viewed on the web:</label>
                <select onchange=${e=>this.makeHandler('webViewed')(e.target.value)}>
-                   <option value="result" selected=${this.state.webViewed=='result'}>Show result only</option>
-                   <option value="editor" selectd=${this.state.webViewed=='editor'}>Load editor</option>
+                   <option value="result" selected=${this.state.webViewed=='result'}>Show result (html) only, do not load editor</option>
+                   <option value="editor" selectd=${this.state.webViewed=='editor'}>Load and show editor</option>
 
                </select>
                </div>
@@ -176,6 +184,7 @@ export class Fiddler extends Component{
     .headHTML(this.state.headHTML)
     .webViewed(this.state.webViewed)
     .editor(this.state.editor)
+    .image(this.state.image)
     .autoRun(this.state.autoRun)
 
     

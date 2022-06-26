@@ -13,6 +13,11 @@ export function toHTML(
   <meta charset="UTF-8">
   <title>${settings.title()}</title>
   <meta name="description" content="${settings.description()}">
+  <meta name="og:image" content="${settings.image()}">
+  <meta name="og:title" content="${settings.title()}">
+  <meta name="og:description" content="${settings.description()}">
+  <meta name="twitter:image" content="${settings.image()}">
+  <meta name="twitter:card" content="summary_large_image">
   ${settings.headHTML()}
   <script>
   window.settings = ${JSON.stringify(settings.copy(true) , null , 2)}
