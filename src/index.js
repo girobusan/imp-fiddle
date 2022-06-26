@@ -2,7 +2,7 @@ import {h , render } from "preact";
 import { Fiddler } from "./Fiddler";
 import {escapeTags , unescapeTags} from "./util";
 import { create as createSettings } from "./settings";
-console.log("Loading editor, stage 1");
+// console.log("Loading editor, stage 1");
 
 //ACTIONS
 //remove all link tags

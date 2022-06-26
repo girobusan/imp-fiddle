@@ -7,12 +7,13 @@ import { TheInput } from "./util";
 import { If } from "./If";
 import { saveFile } from "./fileops";
 require("./fiddler.scss")
+const version = VERSION;
 
 
 export class Fiddler extends Component{
   constructor(props){
     super(props);
-    console.log("Props" , props);
+    console.info("Imp Fiddle, v" , version);
     this.mainContainer = createRef();
     this.editors = createRef();
     this.preview = createRef();
@@ -61,7 +62,9 @@ export class Fiddler extends Component{
      ></input>
      <input type="checkbox"
      checked=${this.props.settings.autoRun()}
-     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked) ; this.renderPreview()}  }
+     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked) ; 
+     this.setState({'autoRun' : e.target.checked}) ;
+     this.renderPreview()}  }
      ></input><label>Auto run</label>
      </div>
 
@@ -160,7 +163,7 @@ export class Fiddler extends Component{
   makeHandler(name, initValue){
      
      const f = (v)=> { 
-     console.log(name, v)  ; 
+     // console.log(name, v)  ; 
      const c = {} ;
      c["modified"] = true;
 
