@@ -116,7 +116,7 @@
                <label>When viewed on the web:</label>
                <select onchange=${e=>this.makeHandler("webViewed")(e.target.value)}>
                    <option value="result" selected=${"result"==this.state.webViewed}>Show result (html) only, do not load editor</option>
-                   <option value="editor" selectd=${"editor"==this.state.webViewed}>Load and show editor</option>
+                   <option value="editor" selected=${"editor"==this.state.webViewed}>Load and show editor</option>
 
                </select>
                </div>

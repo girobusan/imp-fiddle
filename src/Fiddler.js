@@ -140,7 +140,7 @@ export class Fiddler extends Component{
                <label>When viewed on the web:</label>
                <select onchange=${e=>this.makeHandler('webViewed')(e.target.value)}>
                    <option value="result" selected=${this.state.webViewed=='result'}>Show result (html) only, do not load editor</option>
-                   <option value="editor" selectd=${this.state.webViewed=='editor'}>Load and show editor</option>
+                   <option value="editor" selected=${this.state.webViewed=='editor'}>Load and show editor</option>
 
                </select>
                </div>
