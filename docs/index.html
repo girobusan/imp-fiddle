@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Imp Fiddle</title>
+  <meta name="description" content="The Imp Fiddle is a JSFiddle-like local tool with some twist.">
+  <meta name="og:image" content="fuddler.png">
+  <meta name="og:title" content="Imp Fiddle">
+  <meta name="og:description" content="The Imp Fiddle is a JSFiddle-like local tool with some twist.">
+  <meta name="twitter:image" content="fuddler.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js" integrity="sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="netart.css">
+  <script>
+  window.settings = {
+  "title": "Imp Fiddle",
+  "description": "The Imp Fiddle is a JSFiddle-like local tool with some twist.",
+  "image": "fuddler.png",
+  "filename": "index.html",
+  "headHTML": "&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js\" integrity=\"sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"&gt;&lt;/script&gt;\n&lt;link rel=\"stylesheet\" href=\"netart.css\"&gt;",
+  "author": "",
+  "keywords": "",
+  "autoRun": true,
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js",
+  "webViewed": "result"
+}
+  </script>
+  <script>
+  window.addEventListener("hashchange" , ()=>history.go(0));
+  window.addEventListener(
+  "DOMContentLoaded" , 
+  function(){
+      const p = window.location.protocol;
+      if(window.location.hash==="#view"){
+        return;
+      }
+      if(p.startsWith("http") && 
+        window.settings.webViewed==="result" &&
+        window.location.hash !== "#edit"
+        ){
+        return;
+      }
+
+      if(p=='file:' || window.location.hash=="#edit"){
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js"
+          document.head.appendChild(s);
+      }
+
+})
+  </script>
+  <script id="customJS">const width= 1200;
+const height=400;
+const pad=50;
+
+function draw(){
+   const c = d3.select("#viz").append("svg");
+   c.attr("viewBox" , `0 0 ${width} ${height}`);
+   c.append("rect").attr("width" , width).attr("height" , height)
+   .attr("fill" , "maroon");
+   
+   const xScale = d3.scaleLinear()
+   .range([pad,width-pad])
+   .domain([0,1])
+   ;
+   
+    const yScale = d3.scaleLinear()
+   .range([pad,height-pad])
+   .domain([0,1])
+   ;
+   
+   for(let x=0 ; x <100 ; x++){
+     const X = Math.random();
+     const Y = Math.random();
+     c.append("circle")
+     .attr("cx" , xScale(X))
+     .attr("cy" , yScale(Y))
+     .attr("fill" , "white")
+     .attr("r" , Math.random()*100)
+     .attr("opacity" , .2)
+   }
+  
+}
+
+//window.addEventListener("load" , draw)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="customCSS">
+body{
+  color: black;
+}
+
+h1{
+  font-size: 6em;
+  font-weight: bold;
+  border-bottom: 2px solid maroon;
+}
+
+h1,h2,h3,h4{
+  color: maroon;
+}
+#outer{
+  width: 100%;
+} 
+#viz{
+  width: 100%;
+} 
+img{
+  max-width: calc(100% - 32px);
+  display: block;
+  margin: 0 auto;
+}
+svg{
+  display: block;
+  width: 100%;
+}
+#container > footer{
+  padding: 32px;
+  color: gray;
+  text-align: center;
+} 
+</style>
+</head>
+<body>
+<div id="container">
+<h1>Imp 👿🎻 Fiddle</h1>
+<p>Imp Fiddle is a JSFiddle-like tool. This page is an Imp Fiddle itself. You may open it on <a href="">edit mode</a> to see Imp Fiddle in action.</p>
+
+<img src="fiddler.png">
+
+<div id="outer">
+<div id="viz"></div></div>
+
+<footer>Powered by Imp Fiddle</footer>
+
+</div>  
+ <script id="htmlSource" type="text/html">&lt;div id="container"&gt;
+&lt;h1&gt;Imp 👿🎻 Fiddle&lt;/h1&gt;
+&lt;p&gt;Imp Fiddle is a JSFiddle-like tool. This page is an Imp Fiddle itself. You may open it on &lt;a href=""&gt;edit mode&lt;/a&gt; to see Imp Fiddle in action.&lt;/p&gt;
+
+&lt;img src="fiddler.png"&gt;
+
+&lt;div id="outer"&gt;
+&lt;div id="viz"&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;footer&gt;Powered by Imp Fiddle&lt;/footer&gt;
+
+&lt;/div&gt;  </script>
+</body>
+</html>
