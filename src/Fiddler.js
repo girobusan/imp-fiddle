@@ -74,11 +74,6 @@ export class Fiddler extends Component{
    value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}
    style=${{marginRight: "16px"}}
    ></input>
-    <${If} condition=${!this.state.modified}>
-   <input type="button" value="View Mode"
-   onclick=${e=>window.location="#view"}
-   ></input>
-    </${If}>
 
 
      </div>
