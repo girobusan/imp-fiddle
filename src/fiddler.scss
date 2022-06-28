@@ -8,6 +8,10 @@ body, html{
     box-sizing: border-box;
   }
 }
+  .activeTab{
+background-color: rgba(249,234,125);
+    color: black;
+  }
 
 .Fiddler{
   width: 100%;
@@ -16,9 +20,34 @@ body, html{
   display: flex;
   flex-direction: column;
 
+  input[type=button]{
+    height: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    &.modified{
+      background-color: orangered;
+    }
+  }
+
+  .tab{
+    background-color: #888;
+    color: white;
+
+  }
+
   &.settings{
     #mainContainer{
       display: none;
+    }
+    #dataContainer{
+      display: none;
+    }
+    .tab.settings{
+       @extend .activeTab;
+
     }
   }
 
@@ -26,6 +55,25 @@ body, html{
     #settingsContainer{
       display: none;
     }
+    #dataContainer{
+      display: none;
+    }
+    .tab.main{
+      @extend .activeTab;
+    }
+  }
+
+  &.data{
+    #settingsContainer{
+      display: none;
+    }
+    #mainContainer{
+      display: none;
+    }
+    .tab.data{
+     @extend .activeTab;
+    }
+
   }
 
   #mainContainer , #editors{
@@ -40,8 +88,41 @@ body, html{
       height: 60%;
     }
   }
-  #settingsContainer{
+  #settingsContainer , #dataContainer{
     padding: 16px;
+  }
+
+  .dataList{
+    
+  }
+     .addDataButton{
+       background-color: #666;
+       border-radius: 4px;
+       display: inline-block;
+       padding: 8px 16px;
+     }
+
+  .DataBlock{
+     display: flex;
+     flex-direction: row;
+     margin-bottom: 1rem;
+     border-radius: 4px;
+     overflow: hidden;
+     .dataName{
+       padding: 8px 16px;
+       background-color: gray;
+     }
+     .dataVar{
+       padding: 8px 16px;
+       font-family: monospace;
+       background-color: #1f1f1c;
+       color: hsl(350deg, 40%, 70%);
+     }
+     .deleteData{
+       padding: 8px;
+       background-color: gold;
+       border-radius: 0 4px 4px 0;
+     }
   }
 
 }
@@ -78,17 +159,6 @@ body, html{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  input[type=button]{
-    height: 32px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    &.modified{
-      background-color: orangered;
-    }
-  }
 }
 
 .settingsPanel{

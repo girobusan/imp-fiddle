@@ -5,15 +5,24 @@ import Split from "split.js";
 import { CodeEditor } from "./CodeEditor";
 import { TheInput } from "./util";
 import { If } from "./If";
-import { saveFile } from "./fileops";
+import { csvParse } from "d3-dsv";
+import { saveFile, uploadData } from "./fileops";
 require("./fiddler.scss")
 const version = VERSION;
+
+function DataBlock(props){
+  return html`<div class="DataBlock">
+  <div class="dataName">${props.name}</div>
+  <div class="dataVar">window.datasets["${props.name}"]</div>
+  <div class="deleteData" onclick=${()=>props.delFunction(props.name)}>Delete</div>
+  </div>`
+}
 
 
 export class Fiddler extends Component{
   constructor(props){
     super(props);
-    console.info("Imp Fiddle, v" , version);
+    console.info("Imp Fiddle, v" + version);
     this.mainContainer = createRef();
     this.editors = createRef();
     this.preview = createRef();
@@ -22,6 +31,8 @@ export class Fiddler extends Component{
     this.htmlEditor = createRef();
     this.modified = false;
     this.state = { 
+      page: 'main',
+      data: props.data,
       html: props.html || "",
       js: props.js || "",
       css: props.css || "",
@@ -39,18 +50,20 @@ export class Fiddler extends Component{
 
     }
     this.renderPreview = this.renderPreview.bind(this);
+    this.addData = this.addData.bind(this);
+    this.removeData = this.removeData.bind(this);
     
   }
   render(){
     
      return html`<div
-     class=${this.state.showSettings ? "Fiddler settings" : "Fiddler main"}>
+     class=${"Fiddler " + this.state.page}>
      <div id="toolbar">
 
      <div id="immediateTools">
      <input type="button" value="Save" 
      onclick=${()=>{ 
-     saveFile(this.props.settings , this.state.html , this.state.css , this.state.js ) ;
+     saveFile(this.props.settings , this.state.html , this.state.css , this.state.js , this.state.data ) ;
      // this.setState({modified: false})
      }}
      class=${this.state.modified ? "modified" : "regular"}
@@ -69,10 +82,26 @@ export class Fiddler extends Component{
      </div>
 
      <div id="otherTools">
+
    <input type="button" 
-   onclick=${()=>this.setState({showSettings: !this.state.showSettings})}
-   value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}
+   class="tab main"
+   onclick=${()=>this.setState({page: "main"})}
+   value="Playground"
    style=${{marginRight: "16px"}}
+   ></input>
+
+   <input type="button" 
+   class="tab settings"
+   onclick=${()=>this.setState({page: "settings"})}
+   value="Page Settings"
+   style=${{marginRight: "16px"}}
+   ></input>
+
+   <input type="button" 
+   class="tab data"
+   onclick=${()=>this.setState({page: "data"})}
+   value="Data"
+   style=${{marginRight: "0"}}
    ></input>
 
 
@@ -152,6 +181,19 @@ export class Fiddler extends Component{
                </div>
                </div>
      </div>
+     <div id="dataContainer">
+     <h2>Attached Data</h2>
+
+     <div class="dataList">
+     ${Object.keys( this.state.data ).map(e=>html`<${DataBlock} name=${e} 
+     delFunction=${this.removeData}
+     />`)}
+     </div>
+    <input type="button" value="Add JSON or CSV"
+    onclick=${()=>uploadData(this.addData)}
+    ></input> 
+
+     </div>
 
      </div>`
   }
@@ -169,6 +211,21 @@ export class Fiddler extends Component{
      return f;
 
   }
+
+  addData(name, data){
+    const d = Object.assign({} , this.state.data);
+    d[name] = data;
+    this.setState({data:d});
+  }
+
+  removeData(name){
+    if(this.state.data[name]){
+      const d = Object.assign({}, this.state.data);
+      delete(d[name]);
+      this.setState({data: d})
+    }
+  }
+
   componentDidUpdate(){
     this.modified = true;
     if(this.props.settings.autoRun())
@@ -193,7 +250,9 @@ export class Fiddler extends Component{
     this.renderPreview();
   }
   renderPreview(){
-     this.preview.current.srcdoc = `<html><head>${this.props.settings.headHTML()}
+     this.preview.current.srcdoc = `<html><head>
+     <script>window.datasets = ${JSON.stringify(this.state.data)}</script>
+     ${this.props.settings.headHTML()}
      <style>${this.state.css || ""}</style>
      <script>${this.state.js || ""}</script>
      </head><body>${this.state.html || ""}</body></html>`

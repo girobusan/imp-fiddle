@@ -1,10 +1,12 @@
+import { csvParse } from "d3-dsv";
 import { escapeTags } from "./util";
 
 export function toHTML(
    settings,
    html,
    css,
-   js
+   js,
+   data 
 ){
   const tpl = `
 <!DOCTYPE html>
@@ -18,6 +20,7 @@ export function toHTML(
   <meta name="og:description" content="${settings.description()}">
   <meta name="twitter:image" content="${settings.image()}">
   <meta name="twitter:card" content="summary_large_image">
+  <script>window.datasets=${JSON.stringify(data)}</script>
   ${settings.headHTML()}
   <script>
   window.settings = ${JSON.stringify(settings.copy(true) , null , 2)}
@@ -72,11 +75,42 @@ export function saveToDisk(name,content){
 
 }
 
-export function saveFile(settings, html, css , js){
+export function saveFile(settings, html, css , js , data){
    console.info("Saving...")
-   const t = toHTML(settings, html, css, js);
+   const t = toHTML(settings, html, css, js , data);
    const f = settings.filename();
    saveToDisk(f, t);
 
+}
+
+export function uploadData(cb){
+  const e = document.createElement("input");
+  e.type="file";
+  e.onchange=(evt)=>{
+    const f = e.files[0];
+      console.log("file" , f)
+      const n = f.name;
+      f.text()
+      .then(r=>{
+      console.log(f.type);
+        
+        var c = null;
+        try{
+        c=JSON.parse(r);
+        }catch{
+         c= csvParse(r);
+        }
+
+
+        if(cb && c){ cb(n,c) }else{
+        console.log(n , c);
+      }
+      })
+  }
+
+  document.body.appendChild(e);
+  e.click();
+  e.remove();
+  
 }
 

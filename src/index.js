@@ -26,15 +26,15 @@ const ht = document.getElementById("htmlSource");
 const html=unescapeTags( ht.innerHTML );
 ht.remove();
 const settings = createSettings(window.settings || {});
-
+const data = window.datasets || {};
 
 //remove everything inside BODY
-document.body.innerHTML = "<!--empty-->"
+document.body.innerHTML = "<!-- empty -->"
 //load editor 
 
 const Editor = h(
    Fiddler,
-   {css,js,html,settings}
+   {css,js,html,settings, data  }
 );
 //    --- render it inside body
 render(Editor, document.body)

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "codejar": "^3.6.0",
+    "d3": "^7.5.0",
     "htm": "^3.1.1",
     "markdown-it": "^13.0.0",
     "markdown-it-checkbox": "^1.1.0",
