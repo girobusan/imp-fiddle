@@ -7,6 +7,7 @@ Local, JSFiddle-like tool.
 
 - Fully local, no server required
 - Saves your work in single file
+- It's possible to embed data (CSV or JSON) in the same file
 - Supports SEO tags, can be shared via any hosting provider
 - Can display only resulted HTML, without loading an editor. Can be used as mini-CMS this way.
 
