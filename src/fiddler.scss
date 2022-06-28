@@ -27,6 +27,7 @@ background-color: rgba(249,234,125);
     border: none;
     outline: none;
     border-radius: 4px;
+    cursor: pointer;
     &.modified{
       background-color: orangered;
     }
@@ -35,6 +36,7 @@ background-color: rgba(249,234,125);
   .tab{
     background-color: #888;
     color: white;
+    transition: all .5s;
 
   }
 
@@ -90,9 +92,46 @@ background-color: rgba(249,234,125);
   }
   #settingsContainer , #dataContainer{
     padding: 16px;
+    h2{
+      margin: 0rem auto;
+      margin-bottom: 1rem;
+      line-height: 100%;
+    }
   }
 
   .dataList{
+    margin-bottom: 2rem;
+    border-spacing: 0;
+    th{
+      font-size: 12px;
+     font-weight: normal;
+     text-align: left;
+     padding-bottom: 4px;
+    }
+    tr{
+      &:nth-child(odd){
+        .dataName, .dataSize{
+          background-color: #dedede;
+        }
+
+      }
+      &:nth-child(2){
+        td:first-child{
+          border-top-left-radius: 4px;
+        }
+        td:last-child{
+          border-top-right-radius: 4px;
+        }
+      }
+      &:last-child{
+        td:first-child{
+          border-bottom-left-radius: 4px;
+        }
+        td:last-child{
+          border-bottom-right-radius: 4px;
+        }
+      }
+    }
     
   }
      .addDataButton{
@@ -103,14 +142,14 @@ background-color: rgba(249,234,125);
      }
 
   .DataBlock{
-     display: flex;
-     flex-direction: row;
-     margin-bottom: 1rem;
-     border-radius: 4px;
+     // display: flex;
+     // flex-direction: row;
+     // margin-bottom: 1rem;
+     // border-radius: 4px;
      overflow: hidden;
      .dataName{
        padding: 8px 16px;
-       background-color: gray;
+       background-color: #efefef;
      }
      .dataVar{
        padding: 8px 16px;
@@ -118,10 +157,22 @@ background-color: rgba(249,234,125);
        background-color: #1f1f1c;
        color: hsl(350deg, 40%, 70%);
      }
+     .dataSize{
+
+       padding: 8px 16px;
+       background-color: #efefef;
+     }
      .deleteData{
        padding: 8px;
-       background-color: gold;
-       border-radius: 0 4px 4px 0;
+       background-color: orange;
+       text-align: center;
+       cursor: pointer;
+       font-weight: bold;
+       &:hover{
+         background-color: red;
+         color: white;
+       }
+       // border-radius: 0 0px 4px 0;
      }
   }
 

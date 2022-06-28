@@ -3,7 +3,7 @@ import { useRef } from "preact/hooks";
 import { html } from "htm/preact";
 import Split from "split.js";
 import { CodeEditor } from "./CodeEditor";
-import { TheInput } from "./util";
+import { TheInput , objectSize } from "./util";
 import { If } from "./If";
 import { csvParse } from "d3-dsv";
 import { saveFile, uploadData } from "./fileops";
@@ -11,11 +11,12 @@ require("./fiddler.scss")
 const version = VERSION;
 
 function DataBlock(props){
-  return html`<div class="DataBlock">
-  <div class="dataName">${props.name}</div>
-  <div class="dataVar">window.datasets["${props.name}"]</div>
-  <div class="deleteData" onclick=${()=>props.delFunction(props.name)}>Delete</div>
-  </div>`
+  return html`<tr class="DataBlock">
+  <td class="dataName">${props.name}</td>
+  <td class="dataVar">window.datasets["${props.name}"]</td>
+  <td class="dataSize">${objectSize(props.dataObject)}</td>
+  <td class="deleteData" onclick=${()=>props.delFunction(props.name)}>×</td>
+  </tr>`
 }
 
 
@@ -184,11 +185,17 @@ export class Fiddler extends Component{
      <div id="dataContainer">
      <h2>Attached Data</h2>
 
-     <div class="dataList">
+     <table class="dataList">
+     <tbody>
+     <${If} condition=${Object.keys(this.state.data).length>0}>
+     <tr><th>Name</th><th>Code</th><th>Size</th><th>Delete</th></tr>
+     </${If}>
      ${Object.keys( this.state.data ).map(e=>html`<${DataBlock} name=${e} 
      delFunction=${this.removeData}
-     />`)}
-     </div>
+     dataObject=${this.state.data[e]}
+    />`)}
+    </tbody>
+    </table>
     <input type="button" value="Add JSON or CSV"
     onclick=${()=>uploadData(this.addData)}
     ></input> 
@@ -213,6 +220,7 @@ export class Fiddler extends Component{
   }
 
   addData(name, data){
+  console.log(name, data);
     const d = Object.assign({} , this.state.data);
     d[name] = data;
     this.setState({data:d});

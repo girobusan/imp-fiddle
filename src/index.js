@@ -34,7 +34,7 @@ document.body.innerHTML = "<!-- empty -->"
 
 const Editor = h(
    Fiddler,
-   {css,js,html,settings, data  }
+   { css , js , html , settings , data  }
 );
 //    --- render it inside body
 render(Editor, document.body)

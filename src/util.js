@@ -26,6 +26,18 @@ export function unescapeTags(s){
   return s.replace(/&amp;|&lt;|&gt;/g , replacer);
 }
 
+function byteCount(s) {
+    return encodeURI(s).split(/%..|./).length - 1;
+}
+
+function sizeFormat(n){
+  return ( Math.round(n/102.4)/10 ) + "Kb";
+}
+
+export function objectSize(o){
+  return sizeFormat( byteCount(JSON.stringify(o)) );
+}
+
 
 export function TheInput(props){
   const inp = useRef(null);
