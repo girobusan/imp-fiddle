@@ -88,7 +88,7 @@ export function uploadData(cb){
   e.type="file";
   e.onchange=(evt)=>{
     const f = e.files[0];
-      console.log("file" , f)
+      // console.log("file" , f)
       const n = f.name;
       f.text()
       .then(r=>{

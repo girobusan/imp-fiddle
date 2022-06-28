@@ -31,6 +31,7 @@ function byteCount(s) {
 }
 
 function sizeFormat(n){
+  if(n<600){return n+"B"}
   return ( Math.round(n/102.4)/10 ) + "Kb";
 }
 

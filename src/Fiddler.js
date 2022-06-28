@@ -220,7 +220,7 @@ export class Fiddler extends Component{
   }
 
   addData(name, data){
-  console.log(name, data);
+  // console.log(name, data);
     const d = Object.assign({} , this.state.data);
     d[name] = data;
     this.setState({data:d});
