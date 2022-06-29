@@ -31,23 +31,33 @@ export function toHTML(
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
+      const doEdit = function(){
+
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+      }
+      /* console.log("Loaded, proto" , p , "window name" , wn) */
       if(window.location.hash==="#view"){
         return;
       }
-      if(p.startsWith("http") && 
-        window.settings.webViewed==="result" &&
-        window.location.hash !== "#edit"
-        ){
+
+      if( window.location.hash==="#edit"){
+        doEdit();
         return;
       }
 
-      if(p=='file:' || window.location.hash=="#edit"){
-          console.log("Loading editor")
-          const s = document.createElement("script");
-          s.src =  "${settings.editor() || 'fiddler.js'}"
-          document.head.appendChild(s);
+      //no hash
+
+      if(window.settings.webViewed==="viewonly" ){
+        return;
       }
 
+      if(p.startsWith("http") && window.settings.webViewed==="result"){
+        return;
+      }
+      doEdit();
 })
   </script>
   <script id="customJS">${js}</script>

@@ -165,10 +165,11 @@ export class Fiddler extends Component{
                value=${this.state.editor}
                handler=${this.makeHandler("editor")}
                />
-               <label>When viewed on the web:</label>
+               <label>When viewed:</label>
                <select onchange=${e=>this.makeHandler('webViewed')(e.target.value)}>
-                   <option value="result" selected=${this.state.webViewed=='result'}>Show result (html) only, do not load editor</option>
+                   <option value="result" selected=${this.state.webViewed=='result'}>Load editor when viewed locally, result only when viewed on the web</option>
                    <option value="editor" selected=${this.state.webViewed=='editor'}>Load and show editor</option>
+                   <option value="viewonly" selected=${this.state.webViewed=='viewonly'}>Result only, add #edit to path for loading editor</option>
 
                </select>
                </div>
