@@ -3,7 +3,7 @@
 Imp Fiddle
 ==========
 
-Local, JSFiddle-like tool.
+Local JSFiddle-like tool which saves your "fidles" in local html files.
 
 - Fully local, no server required
 - Saves your work in single file
