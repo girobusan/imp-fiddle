@@ -107,6 +107,12 @@ background-color: rgba(249,234,125);
      font-weight: normal;
      text-align: left;
      padding-bottom: 4px;
+     &:first-child{
+       padding-left: 4px;
+     }
+     &:last-child{
+       padding-right: 4px;
+     }
     }
     tr{
       &:nth-child(odd){

@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vega Lite API</title>
+  <meta name="description" content="This is the test of vega-lite-api in Imp Fiddle playground.">
+  <meta name="og:image" content="">
+  <meta name="og:title" content="Vega Lite API">
+  <meta name="og:description" content="This is the test of vega-lite-api in Imp Fiddle playground.">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>window.datasets={"SleepInMammals.csv":[{"animal":"African giant pouched rat","ru":"Африканская сумчатая крыса","body_weight":1,"brain_weight":6.6,"slow_wave_sleep":"6.3","paradocical_sleep":"2","total_sleep":8.3,"mlifespan":4.5,"gestation_time":"42","predation_index":"3","sleep_exp_index":"1","danger_index":"3","brain2body":0.15151515151515152},{"animal":"Asian elephant","ru":"Индийский слон","body_weight":2547,"brain_weight":4603,"slow_wave_sleep":"2.1","paradocical_sleep":"1.8","total_sleep":3.9,"mlifespan":69,"gestation_time":"624","predation_index":"3","sleep_exp_index":"5","danger_index":"4","brain2body":0.5533347816641321},{"animal":"Baboon","ru":"Бабуин","body_weight":10.55,"brain_weight":179.5,"slow_wave_sleep":"9.1","paradocical_sleep":"0.7","total_sleep":9.8,"mlifespan":27,"gestation_time":"180","predation_index":"4","sleep_exp_index":"4","danger_index":"4","brain2body":0.05877437325905293},{"animal":"Big brown bat","ru":"Большой бурый кожан","body_weight":0.023,"brain_weight":0.3,"slow_wave_sleep":"15.8","paradocical_sleep":"3.9","total_sleep":19.7,"mlifespan":19,"gestation_time":"35","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.07666666666666667},{"animal":"Brazilian tapir","ru":"Бразильский тапир","body_weight":160,"brain_weight":169,"slow_wave_sleep":"5.2","paradocical_sleep":"1","total_sleep":6.2,"mlifespan":30.4,"gestation_time":"392","predation_index":"4","sleep_exp_index":"5","danger_index":"4","brain2body":0.9467455621301775},{"animal":"Cat","ru":"Кошка","body_weight":3.3,"brain_weight":25.6,"slow_wave_sleep":"10.9","paradocical_sleep":"3.6","total_sleep":14.5,"mlifespan":28,"gestation_time":"63","predation_index":"1","sleep_exp_index":"2","danger_index":"1","brain2body":0.12890624999999997},{"animal":"Chimpanzee","ru":"Шимпанзе","body_weight":52.16,"brain_weight":440,"slow_wave_sleep":"8.3","paradocical_sleep":"1.4","total_sleep":9.7,"mlifespan":50,"gestation_time":"230","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.11854545454545454},{"animal":"Chinchilla","ru":"Шиншилла","body_weight":0.425,"brain_weight":6.4,"slow_wave_sleep":"11","paradocical_sleep":"1.5","total_sleep":12.5,"mlifespan":7,"gestation_time":"112","predation_index":"5","sleep_exp_index":"4","danger_index":"4","brain2body":0.06640625},{"animal":"Cow","ru":"Корова","body_weight":465,"brain_weight":423,"slow_wave_sleep":"3.2","paradocical_sleep":"0.7","total_sleep":3.9,"mlifespan":30,"gestation_time":"281","predation_index":"5","sleep_exp_index":"5","danger_index":"5","brain2body":1.099290780141844},{"animal":"Eastern American mole","ru":"Восточноамериканский крот","body_weight":0.075,"brain_weight":1.2,"slow_wave_sleep":"6.3","paradocical_sleep":"2.1","total_sleep":8.4,"mlifespan":3.5,"gestation_time":"42","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.0625},{"animal":"Echidna","ru":"Ехидна","body_weight":3,"brain_weight":25,"slow_wave_sleep":"8.6","paradocical_sleep":"0","total_sleep":8.6,"mlifespan":50,"gestation_time":"28","predation_index":"2","sleep_exp_index":"2","danger_index":"2","brain2body":0.12},{"animal":"European hedgehog","ru":"Европейский еж","body_weight":0.785,"brain_weight":3.5,"slow_wave_sleep":"6.6","paradocical_sleep":"4.1","total_sleep":10.7,"mlifespan":6,"gestation_time":"42","predation_index":"2","sleep_exp_index":"2","danger_index":"2","brain2body":0.22428571428571428},{"animal":"Galago","ru":"Галаго","body_weight":0.2,"brain_weight":5,"slow_wave_sleep":"9.5","paradocical_sleep":"1.2","total_sleep":10.7,"mlifespan":10.4,"gestation_time":"120","predation_index":"2","sleep_exp_index":"2","danger_index":"2","brain2body":0.04},{"animal":"Goat","ru":"Козел","body_weight":27.66,"brain_weight":115,"slow_wave_sleep":"3.3","paradocical_sleep":"0.5","total_sleep":3.8,"mlifespan":20,"gestation_time":"148","predation_index":"5","sleep_exp_index":"5","danger_index":"5","brain2body":0.2405217391304348},{"animal":"Golden hamster","ru":"Золотистый хомяк","body_weight":0.12,"brain_weight":1,"slow_wave_sleep":"11","paradocical_sleep":"3.4","total_sleep":14.4,"mlifespan":3.9,"gestation_time":"16","predation_index":"3","sleep_exp_index":"1","danger_index":"2","brain2body":0.12},{"animal":"Gray seal","ru":"Серый тюлень","body_weight":85,"brain_weight":325,"slow_wave_sleep":"4.7","paradocical_sleep":"1.5","total_sleep":6.2,"mlifespan":41,"gestation_time":"310","predation_index":"1","sleep_exp_index":"3","danger_index":"1","brain2body":0.26153846153846155},{"animal":"Ground squirrel","ru":"Суслик","body_weight":0.101,"brain_weight":4,"slow_wave_sleep":"10.4","paradocical_sleep":"3.4","total_sleep":13.8,"mlifespan":9,"gestation_time":"28","predation_index":"5","sleep_exp_index":"1","danger_index":"3","brain2body":0.02525},{"animal":"Guinea pig","ru":"Морская свинка","body_weight":1.04,"brain_weight":5.5,"slow_wave_sleep":"7.4","paradocical_sleep":"0.8","total_sleep":8.2,"mlifespan":7.6,"gestation_time":"68","predation_index":"5","sleep_exp_index":"3","danger_index":"4","brain2body":0.1890909090909091},{"animal":"Horse","ru":"Лошадь","body_weight":521,"brain_weight":655,"slow_wave_sleep":"2.1","paradocical_sleep":"0.8","total_sleep":2.9,"mlifespan":46,"gestation_time":"336","predation_index":"5","sleep_exp_index":"5","danger_index":"5","brain2body":0.7954198473282442},{"animal":"Lesser short-tailed shrew","ru":"Малая короткохвостая землеройка","body_weight":0.005,"brain_weight":0.14,"slow_wave_sleep":"7.7","paradocical_sleep":"1.4","total_sleep":9.1,"mlifespan":2.6,"gestation_time":"21.5","predation_index":"5","sleep_exp_index":"2","danger_index":"4","brain2body":0.03571428571428571},{"animal":"Little brown bat","ru":"Малая бурая ночница","body_weight":0.01,"brain_weight":0.25,"slow_wave_sleep":"17.9","paradocical_sleep":"2","total_sleep":19.9,"mlifespan":24,"gestation_time":"50","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.04},{"animal":"Human","ru":"Человек","body_weight":62,"brain_weight":1320,"slow_wave_sleep":"6.1","paradocical_sleep":"1.9","total_sleep":8,"mlifespan":100,"gestation_time":"267","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.04696969696969697},{"animal":"Mouse","ru":"Мышь","body_weight":0.023,"brain_weight":0.4,"slow_wave_sleep":"11.9","paradocical_sleep":"1.3","total_sleep":13.2,"mlifespan":3.2,"gestation_time":"19","predation_index":"4","sleep_exp_index":"1","danger_index":"3","brain2body":0.057499999999999996},{"animal":"Musk shrew","ru":"Мускусная землеройка","body_weight":0.048,"brain_weight":0.33,"slow_wave_sleep":"10.8","paradocical_sleep":"2","total_sleep":12.8,"mlifespan":2,"gestation_time":"30","predation_index":"4","sleep_exp_index":"1","danger_index":"3","brain2body":0.14545454545454545},{"animal":"N. American opossum","ru":"Североамериканский опоссум","body_weight":1.7,"brain_weight":6.3,"slow_wave_sleep":"13.8","paradocical_sleep":"5.6","total_sleep":19.4,"mlifespan":5,"gestation_time":"12","predation_index":"2","sleep_exp_index":"1","danger_index":"1","brain2body":0.2698412698412698},{"animal":"Nine-banded armadillo","ru":"Девятиполосный броненосец","body_weight":3.5,"brain_weight":10.8,"slow_wave_sleep":"14.3","paradocical_sleep":"3.1","total_sleep":17.4,"mlifespan":6.5,"gestation_time":"120","predation_index":"2","sleep_exp_index":"1","danger_index":"1","brain2body":0.32407407407407407},{"animal":"Owl monkey","ru":"Ночная обезьяна","body_weight":0.48,"brain_weight":15.5,"slow_wave_sleep":"15.2","paradocical_sleep":"1.8","total_sleep":17,"mlifespan":12,"gestation_time":"140","predation_index":"2","sleep_exp_index":"2","danger_index":"2","brain2body":0.03096774193548387},{"animal":"Patas monkey","ru":"Мартышка-гусар","body_weight":10,"brain_weight":115,"slow_wave_sleep":"10","paradocical_sleep":"0.9","total_sleep":10.9,"mlifespan":20.2,"gestation_time":"170","predation_index":"4","sleep_exp_index":"4","danger_index":"4","brain2body":0.08695652173913043},{"animal":"Phanlanger","ru":"Кускус (вид опоссумов)","body_weight":1.62,"brain_weight":11.4,"slow_wave_sleep":"11.9","paradocical_sleep":"1.8","total_sleep":13.7,"mlifespan":13,"gestation_time":"17","predation_index":"2","sleep_exp_index":"1","danger_index":"2","brain2body":0.14210526315789473},{"animal":"Pig","ru":"Свинья","body_weight":192,"brain_weight":180,"slow_wave_sleep":"6.5","paradocical_sleep":"1.9","total_sleep":8.4,"mlifespan":27,"gestation_time":"115","predation_index":"4","sleep_exp_index":"4","danger_index":"4","brain2body":1.0666666666666667},{"animal":"Rabbit","ru":"Кролик","body_weight":2.5,"brain_weight":12.1,"slow_wave_sleep":"7.5","paradocical_sleep":"0.9","total_sleep":8.4,"mlifespan":18,"gestation_time":"31","predation_index":"5","sleep_exp_index":"5","danger_index":"5","brain2body":0.2066115702479339},{"animal":"Rat","ru":"Крыса","body_weight":0.28,"brain_weight":1.9,"slow_wave_sleep":"10.6","paradocical_sleep":"2.6","total_sleep":13.2,"mlifespan":4.7,"gestation_time":"21","predation_index":"3","sleep_exp_index":"1","danger_index":"3","brain2body":0.1473684210526316},{"animal":"Red fox","ru":"Лисица","body_weight":4.235,"brain_weight":50.4,"slow_wave_sleep":"7.4","paradocical_sleep":"2.4","total_sleep":9.8,"mlifespan":9.8,"gestation_time":"52","predation_index":"1","sleep_exp_index":"1","danger_index":"1","brain2body":0.08402777777777778},{"animal":"Rhesus monkey","ru":"Макака-резус","body_weight":6.8,"brain_weight":179,"slow_wave_sleep":"8.4","paradocical_sleep":"1.2","total_sleep":9.6,"mlifespan":29,"gestation_time":"164","predation_index":"2","sleep_exp_index":"3","danger_index":"2","brain2body":0.03798882681564246},{"animal":"Sheep","ru":"Овца","body_weight":55.5,"brain_weight":175,"slow_wave_sleep":"3.2","paradocical_sleep":"0.6","total_sleep":3.8,"mlifespan":20,"gestation_time":"151","predation_index":"5","sleep_exp_index":"5","danger_index":"5","brain2body":0.3171428571428571},{"animal":"Tenrec","ru":"Тенрек","body_weight":0.9,"brain_weight":2.6,"slow_wave_sleep":"11","paradocical_sleep":"2.3","total_sleep":13.3,"mlifespan":4.5,"gestation_time":"60","predation_index":"2","sleep_exp_index":"1","danger_index":"2","brain2body":0.34615384615384615},{"animal":"Tree hyrax","ru":"Древесный даман","body_weight":2,"brain_weight":12.3,"slow_wave_sleep":"4.9","paradocical_sleep":"0.5","total_sleep":5.4,"mlifespan":7.5,"gestation_time":"200","predation_index":"3","sleep_exp_index":"1","danger_index":"3","brain2body":0.16260162601626016},{"animal":"Tree shrew","ru":"Тупайя","body_weight":0.104,"brain_weight":2.5,"slow_wave_sleep":"13.2","paradocical_sleep":"2.6","total_sleep":15.8,"mlifespan":2.3,"gestation_time":"46","predation_index":"3","sleep_exp_index":"2","danger_index":"2","brain2body":0.0416},{"animal":"Vervet","ru":"Верветка","body_weight":4.19,"brain_weight":58,"slow_wave_sleep":"9.7","paradocical_sleep":"0.6","total_sleep":10.3,"mlifespan":24,"gestation_time":"210","predation_index":"4","sleep_exp_index":"3","danger_index":"4","brain2body":0.07224137931034483},{"animal":"Water opossum","ru":"Водный опоссум","body_weight":3.5,"brain_weight":3.9,"slow_wave_sleep":"12.8","paradocical_sleep":"6.6","total_sleep":19.4,"mlifespan":3,"gestation_time":"14","predation_index":"2","sleep_exp_index":"1","danger_index":"1","brain2body":0.8974358974358975}]}</script>
+  <meta charset="UTF-8" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css" >
+
+<!--vega lite api-->
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite-api@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-tooltip"></script> 
+
+<!--vega lite api init -->
+<script>
+// setup API options
+      const options = {
+        config: {
+          // Vega-Lite default configuration
+        },
+        init: (view) => {
+          // initialize tooltip handler
+          view.tooltip(new vegaTooltip.Handler().call);
+        },
+        view: {
+          // view constructor options
+          // remove the loader if you don't want to default to vega-datasets!
+          loader: vega.loader({
+            baseURL: "https://cdn.jsdelivr.net/npm/vega-datasets@2/",
+          }),
+          renderer: "svg",
+        },
+      };
+
+      // register vega and vega-lite with the API
+      vl.register(vega, vegaLite, options);
+ </script>
+  <script>
+  window.settings = {
+  "title": "Vega Lite API",
+  "description": "This is the test of vega-lite-api in Imp Fiddle playground.",
+  "image": "",
+  "filename": "vega_lite_api.html",
+  "headHTML": "&lt;meta charset=\"UTF-8\" /&gt;\n&lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css\" &gt;\n\n&lt;!--vega lite api--&gt;\n&lt;script src=\"https://cdn.jsdelivr.net/npm/vega@5\"&gt;&lt;/script&gt;\n&lt;script src=\"https://cdn.jsdelivr.net/npm/vega-lite@4\"&gt;&lt;/script&gt;\n&lt;script src=\"https://cdn.jsdelivr.net/npm/vega-lite-api@4\"&gt;&lt;/script&gt;\n&lt;script src=\"https://cdn.jsdelivr.net/npm/vega-tooltip\"&gt;&lt;/script&gt; \n\n&lt;!--vega lite api init --&gt;\n&lt;script&gt;\n// setup API options\n      const options = {\n        config: {\n          // Vega-Lite default configuration\n        },\n        init: (view) =&gt; {\n          // initialize tooltip handler\n          view.tooltip(new vegaTooltip.Handler().call);\n        },\n        view: {\n          // view constructor options\n          // remove the loader if you don't want to default to vega-datasets!\n          loader: vega.loader({\n            baseURL: \"https://cdn.jsdelivr.net/npm/vega-datasets@2/\",\n          }),\n          renderer: \"svg\",\n        },\n      };\n\n      // register vega and vega-lite with the API\n      vl.register(vega, vegaLite, options);\n &lt;/script&gt;",
+  "author": "",
+  "keywords": "",
+  "autoRun": true,
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js",
+  "webViewed": "result"
+}
+  </script>
+  <script>
+  window.addEventListener("hashchange" , ()=>history.go(0));
+  window.addEventListener(
+  "DOMContentLoaded" , 
+  function(){
+      const p = window.location.protocol;
+      if(window.location.hash==="#view"){
+        return;
+      }
+      if(p.startsWith("http") && 
+        window.settings.webViewed==="result" &&
+        window.location.hash !== "#edit"
+        ){
+        return;
+      }
+
+      if(p=='file:' || window.location.hash=="#edit"){
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js"
+          document.head.appendChild(s);
+      }
+
+})
+  </script>
+  <script id="customJS">//Your Java Script goes here
+function draw(){
+  const width=800;
+  const height=800;
+  const pad = {x:40, y:40}
+  const d=window.datasets["SleepInMammals.csv"];
+  //console.log(Object.keys(data[0]));
+  const data = d.map(e=>{
+    e.body_weight = parseFloat(e.body_weight);
+    e.mlifespan = parseFloat(e.mlifespan);
+    e.body_weight = parseFloat(e.body_weight);
+    e.brain_weight = parseFloat(e.brain_weight);
+    e.total_sleep = parseFloat(e.total_sleep);
+    e.brain2body = e.body_weight/e.brain_weight;
+    return e;
+      }
+  )
+ 
+  
+  ;
+  
+  console.log(data);
+  
+  vl.markBar({ tooltip: true })
+  .width(600)
+        .data(data)
+        .transform(
+          vl.window(vl.rank().as("rank")).sort(vl.field("body_weight").order("descending")),
+          vl.filter('datum.rank < 15')  
+        )
+        .title("Mammals weights (top 15)")
+        .encode(
+          vl.x().fieldQ("body_weight").title("weight"),
+          vl.y().fieldN("animal").sort("-x").title(false),
+          vl.tooltip([vl.fieldN("ru"), vl.fieldN("animal")])
+        )
+        .render()
+        .then(viewElement => {
+          // render returns a promise to a DOM element containing the chart
+          // viewElement.value contains the Vega View object instance
+          document.getElementById('viz1').appendChild(viewElement);
+        });
+        
+        
+          vl.markBar({ tooltip: true })
+  .width(600)
+        .data(data)
+        .transform(
+          vl.filter('datum.animal !="Asian elephant"'),
+          vl.window(vl.rank().as("rank")).sort(vl.field("body_weight").order("descending")),
+          vl.filter('datum.rank < 15')  
+        )
+        .title("Mammals weights (top 15, excluding elephant)")
+        .encode(
+          vl.x().fieldQ("body_weight").title("weight"),
+          vl.y().fieldN("animal").sort("-x").title(false),
+          vl.tooltip([vl.fieldN("ru"), vl.fieldN("animal")])
+        )
+        .render()
+        .then(viewElement => {
+         document.getElementById('viz2').appendChild(viewElement);
+        });
+  
+  
+  
+  
+} 
+
+window.addEventListener("load" , draw);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="customCSS">
+/*Place for your CSS code*/
+body, html{
+  background-color: white;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+h1, h2, h3, p, ul, ol{
+  max-width: 500px;
+  margin: 0 auto;
+}
+h1{
+  margin-top: 4rem;
+}
+
+.visual{
+  display: block;
+  max-width: 1000px !important;
+  margin: 2rem auto;
+ 
+ 
+}
+
+.visual svg{
+  display: block;
+  width: 100% !important;
+  height: auto;
+}
+
+ .visual > div{
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin: 0;
+  }
+
+
+</style>
+</head>
+<body>
+<!--Your html here-->
+ <h1>Mammals</h1>
+ <p>Let's visualize it, using Vega Lite API. This is demo of <i>view mode</i> of <a href="https://github.com/girobusan/imp-fiddle">Imp Fiddle</a>, you can also see this page in <a href="#edit">edit mode</a></p>
+ 
+ <div id="viz1" class="visual"></div>
+ 
+ <p>Okay, let's remove elephant from data. Now it's more detailed.</p>
+ 
+ <div id="viz2" class="visual"></div>
+ <script id="htmlSource" type="text/html">&lt;!--Your html here--&gt;
+ &lt;h1&gt;Mammals&lt;/h1&gt;
+ &lt;p&gt;Let's visualize it, using Vega Lite API. This is demo of &lt;i&gt;view mode&lt;/i&gt; of &lt;a href="https://github.com/girobusan/imp-fiddle"&gt;Imp Fiddle&lt;/a&gt;, you can also see this page in &lt;a href="#edit"&gt;edit mode&lt;/a&gt;&lt;/p&gt;
+ 
+ &lt;div id="viz1" class="visual"&gt;&lt;/div&gt;
+ 
+ &lt;p&gt;Okay, let's remove elephant from data. Now it's more detailed.&lt;/p&gt;
+ 
+ &lt;div id="viz2" class="visual"&gt;&lt;/div&gt;</script>
+</body>
+</html>
