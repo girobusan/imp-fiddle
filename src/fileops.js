@@ -36,7 +36,7 @@ export function toHTML(
       if(p=='file:' || window.location.hash=="#edit"){
           console.log("Loading editor")
           const s = document.createElement("script");
-          s.src =  'fiddler.js'
+          s.src =  window.settings.editor || 'fiddler.js'
           document.head.appendChild(s);
       }
 
