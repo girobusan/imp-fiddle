@@ -53,6 +53,7 @@ export function toHTML(
           const s = document.createElement("script");
           s.src =  window.settings.editor || 'fiddler.js'
           document.head.appendChild(s);
+          }
 
       if(window.settings.webViewed==="viewonly" ){
         return;
