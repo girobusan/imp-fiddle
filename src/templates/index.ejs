@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <title>Imp Fiddle</title>
   <script>
+    //<!-- window.datasets -->
+  </script>
+  <script>
+
 
   window.settings = {
       filename: "index.html",
       title: "Imp Fiddle",
       autoRun: false,
-      webViewed: "result"
+      webViewed: "editor",
+      headHTML: "<!--add external css, libraries, fonts, metadata ...-->"
 
   }
   </script>
@@ -21,14 +26,20 @@
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
+      const doEdit = function(){
+
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+      }
       /* console.log("Loaded, proto" , p , "window name" , wn) */
       if(window.location.hash==="#view"){
         return;
       }
-      if(p.startsWith("http") && 
-        window.settings.webViewed==="result" &&
-        window.location.hash !== "#edit"
-        ){
+
+      if( window.location.hash==="#edit"){
+        doEdit();
         return;
       }
 
@@ -37,20 +48,28 @@
           const s = document.createElement("script");
           s.src =  window.settings.editor || 'fiddler.js';
           document.head.appendChild(s);
+      //no hash
+
+      if(window.settings.webViewed==="viewonly" ){
+        return;
       }
+
+      if(p.startsWith("http") && window.settings.webViewed==="result"){
+        return;
+      }
+      doEdit();
+
 
       })
   </script>
-  <script id="customJS"></script>
+  <script id="customJS">//Your Java Script goes here
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style id="customCSS">
-body{
-  background-color: ivory;
-  color: slategray;
-}
+  /*Place for your CSS code*/
 </style>
 </head>
 <body>
- <script id="htmlSource" type="text/html">This one is lorem ipsum</script>
+  <script id="htmlSource" type="text/html"><!--Your html here--></script>
 </body>
 </html>

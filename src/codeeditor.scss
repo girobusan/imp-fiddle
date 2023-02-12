@@ -9,4 +9,21 @@
   padding: 24px;
   font-size: 16px;
   line-height: 120%;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: .3em;
+    height: .3em;
+  }
+  &::-webkit-scrollbar-button {
+    background: #1f1f1c;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background: #1f1f1c;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: .15em;
+  }
 }

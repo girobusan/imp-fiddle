@@ -18,7 +18,11 @@ var callback ;
 export function create(settings_src , cb){
 // console.log("Creating settings wrapper" , settings_src)
   if(cb){callback=cb}
-  props.forEach(p=>STORE[p]=settings_src[p] || "");
+  props.forEach(p=>{ 
+     const val = settings_src[p]===undefined? "" : settings_src[p]
+     // console.log("ADD" , p , val);
+     STORE[p]=val;
+     });
   return createWrapper();
 }
 
@@ -41,9 +45,9 @@ function createWrapper(){
    w.listProps = ()=> props.slice(0);
    w.copy = (escape)=> escape ? escapedCopy() : unescapedCopy();
    props.forEach( p=>{
-      w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p] || "" )} ;  
+      w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p]===undefined ? "" : STORE[p] )} ;  
       const ev = escapeTags(v);
-      console.log("EV" , p , ev);
+      // console.log("EV" , p , ev);
       if(STORE[p]===ev){return w}
       STORE[p]=ev ; updated(p,v) ; return w }
    } )

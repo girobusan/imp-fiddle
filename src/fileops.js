@@ -1,10 +1,12 @@
+import { csvParse } from "d3-dsv";
 import { escapeTags } from "./util";
 
 export function toHTML(
    settings,
    html,
    css,
-   js
+   js,
+   data 
 ){
   const tpl = `
 <!DOCTYPE html>
@@ -13,6 +15,12 @@ export function toHTML(
   <meta charset="UTF-8">
   <title>${settings.title()}</title>
   <meta name="description" content="${settings.description()}">
+  <meta name="og:image" content="${settings.image()}">
+  <meta name="og:title" content="${settings.title()}">
+  <meta name="og:description" content="${settings.description()}">
+  <meta name="twitter:image" content="${settings.image()}">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>window.datasets=${JSON.stringify(data)}</script>
   ${settings.headHTML()}
   <script>
   window.settings = ${JSON.stringify(settings.copy(true) , null , 2)}
@@ -23,13 +31,20 @@ export function toHTML(
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
+      const doEdit = function(){
+
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+      }
+      /* console.log("Loaded, proto" , p , "window name" , wn) */
       if(window.location.hash==="#view"){
         return;
       }
-      if(p.startsWith("http") && 
-        window.settings.webViewed==="result" &&
-        window.location.hash !== "#edit"
-        ){
+
+      if( window.location.hash==="#edit"){
+        doEdit();
         return;
       }
 
@@ -38,8 +53,15 @@ export function toHTML(
           const s = document.createElement("script");
           s.src =  window.settings.editor || 'fiddler.js'
           document.head.appendChild(s);
+
+      if(window.settings.webViewed==="viewonly" ){
+        return;
       }
 
+      if(p.startsWith("http") && window.settings.webViewed==="result"){
+        return;
+      }
+      doEdit();
 })
   </script>
   <script id="customJS">${js}</script>
@@ -67,11 +89,42 @@ export function saveToDisk(name,content){
 
 }
 
-export function saveFile(settings, html, css , js){
+export function saveFile(settings, html, css , js , data){
    console.info("Saving...")
-   const t = toHTML(settings, html, css, js);
+   const t = toHTML(settings, html, css, js , data);
    const f = settings.filename();
    saveToDisk(f, t);
 
+}
+
+export function uploadData(cb){
+  const e = document.createElement("input");
+  e.type="file";
+  e.onchange=(evt)=>{
+    const f = e.files[0];
+      // console.log("file" , f)
+      const n = f.name;
+      f.text()
+      .then(r=>{
+      console.log(f.type);
+        
+        var c = null;
+        try{
+        c=JSON.parse(r);
+        }catch{
+         c= csvParse(r);
+        }
+
+
+        if(cb && c){ cb(n,c) }else{
+        console.log(n , c);
+      }
+      })
+  }
+
+  document.body.appendChild(e);
+  e.click();
+  e.remove();
+  
 }
 

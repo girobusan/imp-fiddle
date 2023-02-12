@@ -3,15 +3,27 @@ import { useRef } from "preact/hooks";
 import { html } from "htm/preact";
 import Split from "split.js";
 import { CodeEditor } from "./CodeEditor";
-import { TheInput } from "./util";
-import { saveFile } from "./fileops";
+import { TheInput , objectSize } from "./util";
+import { If } from "./If";
+import { csvParse } from "d3-dsv";
+import { saveFile, uploadData } from "./fileops";
 require("./fiddler.scss")
+const version = VERSION;
+
+function DataBlock(props){
+  return html`<tr class="DataBlock">
+  <td class="dataName">${props.name}</td>
+  <td class="dataVar">window.datasets["${props.name}"]</td>
+  <td class="dataSize">${objectSize(props.dataObject)}</td>
+  <td class="deleteData" onclick=${()=>props.delFunction(props.name)}>×</td>
+  </tr>`
+}
 
 
 export class Fiddler extends Component{
   constructor(props){
     super(props);
-    console.log("Props" , props);
+    console.info("Imp Fiddle, v" + version);
     this.mainContainer = createRef();
     this.editors = createRef();
     this.preview = createRef();
@@ -20,6 +32,8 @@ export class Fiddler extends Component{
     this.htmlEditor = createRef();
     this.modified = false;
     this.state = { 
+      page: 'main',
+      data: props.data,
       html: props.html || "",
       js: props.js || "",
       css: props.css || "",
@@ -30,22 +44,27 @@ export class Fiddler extends Component{
       title: props.settings.title(),
       description: props.settings.description(),
       headHTML: props.settings.headHTML(),
+      autoRun: props.settings.autoRun(),
       webViewed: props.settings.webViewed(),
+      editor: props.settings.editor(),
+      image: props.settings.image(),
 
     }
     this.renderPreview = this.renderPreview.bind(this);
+    this.addData = this.addData.bind(this);
+    this.removeData = this.removeData.bind(this);
     
   }
   render(){
     
      return html`<div
-     class=${this.state.showSettings ? "Fiddler settings" : "Fiddler main"}>
+     class=${"Fiddler " + this.state.page}>
      <div id="toolbar">
 
      <div id="immediateTools">
      <input type="button" value="Save" 
      onclick=${()=>{ 
-     saveFile(this.props.settings , this.state.html , this.state.css , this.state.js ) ;
+     saveFile(this.props.settings , this.state.html , this.state.css , this.state.js , this.state.data ) ;
      // this.setState({modified: false})
      }}
      class=${this.state.modified ? "modified" : "regular"}
@@ -57,18 +76,33 @@ export class Fiddler extends Component{
      ></input>
      <input type="checkbox"
      checked=${this.props.settings.autoRun()}
-     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked) ; this.renderPreview()}  }
+     onclick=${(e)=>{this.props.settings.autoRun(e.target.checked) ; 
+     this.setState({'autoRun' : e.target.checked}) ;
+     this.renderPreview()}  }
      ></input><label>Auto run</label>
      </div>
 
      <div id="otherTools">
+
    <input type="button" 
-   onclick=${()=>this.setState({showSettings: !this.state.showSettings})}
-   value=${this.state.showSettings ? "Hide Settings" : "Page Settings"}
+   class="tab main"
+   onclick=${()=>this.setState({page: "main"})}
+   value="Playground"
    style=${{marginRight: "16px"}}
    ></input>
-   <input type="button" value="View Mode"
-   onclick=${e=>window.location="#view"}
+
+   <input type="button" 
+   class="tab settings"
+   onclick=${()=>this.setState({page: "settings"})}
+   value="Page Settings"
+   style=${{marginRight: "16px"}}
+   ></input>
+
+   <input type="button" 
+   class="tab data"
+   onclick=${()=>this.setState({page: "data"})}
+   value="Data"
+   style=${{marginRight: "0"}}
    ></input>
 
 
@@ -123,10 +157,19 @@ export class Fiddler extends Component{
                value=${this.state.description}
                handler=${this.makeHandler("description")}
                />
-               <label>Web behavior</label>
+               <${TheInput} area=${false} name="image" title="Preview image adress"
+               value=${this.state.image}
+               handler=${this.makeHandler("image")}
+               />
+               <${TheInput} area=${false} name="editor" title="Editor location"
+               value=${this.state.editor}
+               handler=${this.makeHandler("editor")}
+               />
+               <label>When viewed:</label>
                <select onchange=${e=>this.makeHandler('webViewed')(e.target.value)}>
-                   <option value="result" selected=${this.state.webViewed=='result'}>Show result only</option>
-                   <option value="editor" selectd=${this.state.webViewed=='editor'}>Load editor</option>
+                   <option value="result" selected=${this.state.webViewed=='result'}>Load editor when viewed locally, result only when viewed on the web</option>
+                   <option value="editor" selected=${this.state.webViewed=='editor'}>Load and show editor</option>
+                   <option value="viewonly" selected=${this.state.webViewed=='viewonly'}>Result only, add #edit to path for loading editor</option>
 
                </select>
                </div>
@@ -140,13 +183,32 @@ export class Fiddler extends Component{
                </div>
                </div>
      </div>
+     <div id="dataContainer">
+     <h2>Attached Data</h2>
+
+     <table class="dataList">
+     <tbody>
+     <${If} condition=${Object.keys(this.state.data).length>0}>
+     <tr><th>Name</th><th>Code</th><th>Size</th><th>Delete</th></tr>
+     </${If}>
+     ${Object.keys( this.state.data ).map(e=>html`<${DataBlock} name=${e} 
+     delFunction=${this.removeData}
+     dataObject=${this.state.data[e]}
+    />`)}
+    </tbody>
+    </table>
+    <input type="button" value="Add JSON or CSV"
+    onclick=${()=>uploadData(this.addData)}
+    ></input> 
+
+     </div>
 
      </div>`
   }
   makeHandler(name, initValue){
      
      const f = (v)=> { 
-     console.log(name, v)  ; 
+     // console.log(name, v)  ; 
      const c = {} ;
      c["modified"] = true;
 
@@ -157,6 +219,22 @@ export class Fiddler extends Component{
      return f;
 
   }
+
+  addData(name, data){
+  // console.log(name, data);
+    const d = Object.assign({} , this.state.data);
+    d[name] = data;
+    this.setState({data:d});
+  }
+
+  removeData(name){
+    if(this.state.data[name]){
+      const d = Object.assign({}, this.state.data);
+      delete(d[name]);
+      this.setState({data: d})
+    }
+  }
+
   componentDidUpdate(){
     this.modified = true;
     if(this.props.settings.autoRun())
@@ -169,6 +247,8 @@ export class Fiddler extends Component{
     .description(this.state.description)
     .headHTML(this.state.headHTML)
     .webViewed(this.state.webViewed)
+    .editor(this.state.editor)
+    .image(this.state.image)
     .autoRun(this.state.autoRun)
 
     
@@ -179,7 +259,9 @@ export class Fiddler extends Component{
     this.renderPreview();
   }
   renderPreview(){
-     this.preview.current.srcdoc = `<html><head>${this.props.settings.headHTML()}
+     this.preview.current.srcdoc = `<html><head>
+     <script>window.datasets = ${JSON.stringify(this.state.data)}</script>
+     ${this.props.settings.headHTML()}
      <style>${this.state.css || ""}</style>
      <script>${this.state.js || ""}</script>
      </head><body>${this.state.html || ""}</body></html>`

@@ -8,6 +8,10 @@ body, html{
     box-sizing: border-box;
   }
 }
+  .activeTab{
+background-color: rgba(249,234,125);
+    color: black;
+  }
 
 .Fiddler{
   width: 100%;
@@ -16,9 +20,36 @@ body, html{
   display: flex;
   flex-direction: column;
 
+  input[type=button]{
+    height: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &.modified{
+      background-color: orangered;
+    }
+  }
+
+  .tab{
+    background-color: #888;
+    color: white;
+    transition: all .5s;
+
+  }
+
   &.settings{
     #mainContainer{
       display: none;
+    }
+    #dataContainer{
+      display: none;
+    }
+    .tab.settings{
+       @extend .activeTab;
+
     }
   }
 
@@ -26,6 +57,25 @@ body, html{
     #settingsContainer{
       display: none;
     }
+    #dataContainer{
+      display: none;
+    }
+    .tab.main{
+      @extend .activeTab;
+    }
+  }
+
+  &.data{
+    #settingsContainer{
+      display: none;
+    }
+    #mainContainer{
+      display: none;
+    }
+    .tab.data{
+     @extend .activeTab;
+    }
+
   }
 
   #mainContainer , #editors{
@@ -40,8 +90,96 @@ body, html{
       height: 60%;
     }
   }
-  #settingsContainer{
+  #settingsContainer , #dataContainer{
     padding: 16px;
+    h2{
+      margin: 0rem auto;
+      margin-bottom: 1rem;
+      line-height: 100%;
+    }
+  }
+
+  .dataList{
+    margin-bottom: 2rem;
+    border-spacing: 0;
+    th{
+      font-size: 12px;
+     font-weight: normal;
+     text-align: left;
+     padding-bottom: 4px;
+     &:first-child{
+       padding-left: 4px;
+     }
+     &:last-child{
+       padding-right: 4px;
+     }
+    }
+    tr{
+      &:nth-child(odd){
+        .dataName, .dataSize{
+          background-color: #dedede;
+        }
+
+      }
+      &:nth-child(2){
+        td:first-child{
+          border-top-left-radius: 4px;
+        }
+        td:last-child{
+          border-top-right-radius: 4px;
+        }
+      }
+      &:last-child{
+        td:first-child{
+          border-bottom-left-radius: 4px;
+        }
+        td:last-child{
+          border-bottom-right-radius: 4px;
+        }
+      }
+    }
+    
+  }
+     .addDataButton{
+       background-color: #666;
+       border-radius: 4px;
+       display: inline-block;
+       padding: 8px 16px;
+     }
+
+  .DataBlock{
+     // display: flex;
+     // flex-direction: row;
+     // margin-bottom: 1rem;
+     // border-radius: 4px;
+     overflow: hidden;
+     .dataName{
+       padding: 8px 16px;
+       background-color: #efefef;
+     }
+     .dataVar{
+       padding: 8px 16px;
+       font-family: monospace;
+       background-color: #1f1f1c;
+       color: hsl(350deg, 40%, 70%);
+     }
+     .dataSize{
+
+       padding: 8px 16px;
+       background-color: #efefef;
+     }
+     .deleteData{
+       padding: 8px;
+       background-color: orange;
+       text-align: center;
+       cursor: pointer;
+       font-weight: bold;
+       &:hover{
+         background-color: red;
+         color: white;
+       }
+       // border-radius: 0 0px 4px 0;
+     }
   }
 
 }
@@ -71,24 +209,21 @@ body, html{
 
 #toolbar{
   width: 100%;
-  height: 64px;
+  // height: 64px;
   background-color: #666;
   color: white;
   padding: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  input[type=button]{
-    height: 32px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    &.modified{
-      background-color: orangered;
+  @media(max-width: 600px){
+    flex-direction: column;
+    div:first-child{
+      margin-bottom: 16px;
     }
   }
+
+
 }
 
 .settingsPanel{
@@ -96,14 +231,14 @@ body, html{
     flex-direction: row;
     justify-content: stretch;
     *{
-      flex-grow: 0.75;
+      flex-grow: .5;
     }
     .left{
       padding-right: 16px;
       margin-bottom: -1rem;
     }
     .right{
-      flex-grow: 1.5;
+      flex-grow: 2;
       display: flex;
       flex-direction: column;
       justify-content: stretch;

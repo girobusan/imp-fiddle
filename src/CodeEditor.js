@@ -2,6 +2,7 @@ import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 import {CodeJar} from "codejar";
+import {withLineNumbers} from 'codejar/linenumbers';
 import Prism from 'prismjs';
 require("prismjs/themes/prism-dark.css");
 require("./codeeditor.scss");
@@ -15,7 +16,9 @@ export class CodeEditor extends Component{
 
   componentDidMount(){
     this.editor = CodeJar(this.container.current , 
-    e=>Prism.highlightElement(e) , {tab: '  '});
+    // withLineNumbers(Prism.highlightElement)
+    e=>Prism.highlightElement(e)
+    )
     //
     this.editor.updateCode(this.props.value || "");
     this.editor.onUpdate(e=>this.props.handler(e));

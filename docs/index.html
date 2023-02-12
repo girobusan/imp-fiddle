@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Imp Fiddle</title>
+  <meta name="description" content="The Imp Fiddle is a JSFiddle-like local tool with some twist.">
+  <meta name="og:image" content="fiddler.png">
+  <meta name="og:title" content="Imp Fiddle">
+  <meta name="og:description" content="The Imp Fiddle is a JSFiddle-like local tool with some twist.">
+  <meta name="twitter:image" content="fiddler.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>window.datasets={}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js" integrity="sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="tbase.css">
+<!--fonts-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
+  <script>
+  window.settings = {
+  "title": "Imp Fiddle",
+  "description": "The Imp Fiddle is a JSFiddle-like local tool with some twist.",
+  "image": "fiddler.png",
+  "filename": "index.html",
+  "headHTML": "&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js\" integrity=\"sha512-hnFpvCiJ8Fr1lYLqcw6wLgFUOEZ89kWCkO+cEekwcWPIPKyknKV1eZmSSG3UxXfsSuf+z/SgmiYB1zFOg3l2UQ==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"&gt;&lt;/script&gt;\n&lt;link rel=\"stylesheet\" href=\"tbase.css\"&gt;\n&lt;!--fonts--&gt;\n&lt;link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"&gt;\n&lt;link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin&gt;\n&lt;link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap\" rel=\"stylesheet\"&gt; ",
+  "author": "",
+  "keywords": "",
+  "autoRun": true,
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js",
+  "webViewed": "result"
+}
+  </script>
+  <script>
+  window.addEventListener("hashchange" , ()=>history.go(0));
+  window.addEventListener(
+  "DOMContentLoaded" , 
+  function(){
+      const p = window.location.protocol;
+      if(window.location.hash==="#view"){
+        return;
+      }
+      if(p.startsWith("http") && 
+        window.settings.webViewed==="result" &&
+        window.location.hash !== "#edit"
+        ){
+        return;
+      }
+
+      if(p=='file:' || window.location.hash=="#edit"){
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js"
+          document.head.appendChild(s);
+      }
+
+})
+  </script>
+  <script id="customJS">//I've' wrote some example JS
+//but still dont know where to put it
+const width= 1200;
+const height=400;
+const pad=50;
+
+function draw(){
+   const c = d3.select("#viz").append("svg");
+   c.attr("viewBox" , `0 0 ${width} ${height}`);
+   c.append("rect").attr("width" , width).attr("height" , height)
+   .attr("fill" , "maroon");
+   
+   const xScale = d3.scaleLinear()
+   .range([pad,width-pad])
+   .domain([0,1])
+   ;
+   
+    const yScale = d3.scaleLinear()
+   .range([pad,height-pad])
+   .domain([0,1])
+   ;
+   
+   for(let x=0 ; x <100 ; x++){
+     const X = Math.random();
+     const Y = Math.random();
+     c.append("circle")
+     .attr("cx" , xScale(X))
+     .attr("cy" , yScale(Y))
+     .attr("fill" , "white")
+     .attr("r" , Math.random()*100)
+     .attr("opacity" , .2)
+   }
+  
+}
+
+//window.addEventListener("load" , draw)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="customCSS">
+body{
+  color: black;
+  background-color: white;
+  font-family: 'PT Sans' , sans-serif;
+}
+
+
+
+h1,h2,h3,h4{
+  color: maroon;
+  font-family: Montserrat , sans-serif
+}
+h1{
+  font-weight: 900;
+}
+#outer{
+  width: 100%;
+} 
+#viz{
+  width: 100%;
+} 
+img{
+  max-width: calc(100% - 32px);
+  display: block;
+  margin: 0 auto;
+}
+svg{
+  display: block;
+  width: 100%;
+}
+#container{
+  max-width: 800px;
+  margin: 0 auto;
+}
+#container > footer{
+  padding: 32px;
+  color: gray;
+  text-align: center;
+}
+
+.indented{
+  width: calc(100% + 16px);
+  margin-left: -8px;
+}
+</style>
+</head>
+<body>
+<a href="https://github.com/girobusan/imp-fiddle">
+  <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub">
+    </a>
+
+<div id="container">
+<h1>👿🎻<br>Imp Fiddle</h1>
+<p><big>Imp Fiddle is a JSFiddle-like, but <i>local</i> tool. This page is an Imp Fiddle itself. You may open it in <a href="#edit">edit mode</a> to see Imp Fiddle in action. Scroll down to see more.</big></p>
+
+<p class="indented"><img src="fiddler.png"></p>
+
+<h2>Features</h2>
+<ul>
+<li>Live HTML, CSS and JS playground</li>
+<li>Fully local, no server required</li>
+<li>Results can be saved locally</li>
+<li>Set up custom HTML in HEAD, SEO tags and publish to your own hosting</li>
+<li>Can display only resulted HTML (like this page), <i>without loading an editor</i>. Only YOUR code.</li>
+<li>You may force view or edit mode as you wish</li>
+</ul>
+
+<h2>In action</h2>
+<ul>
+<li><a href="d3_test.html">D3 demo</a> </li>
+<li><a href="vega_lite_api.html">Vega Lite API + data attachment + view mode</a></li>
+</ul>
+
+<footer><small>Powered by Imp Fiddle</small></footer>
+
+</div>  
+ <script id="htmlSource" type="text/html">&lt;a href="https://github.com/girobusan/imp-fiddle"&gt;
+  &lt;img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub"&gt;
+    &lt;/a&gt;
+
+&lt;div id="container"&gt;
+&lt;h1&gt;👿🎻&lt;br&gt;Imp Fiddle&lt;/h1&gt;
+&lt;p&gt;&lt;big&gt;Imp Fiddle is a JSFiddle-like, but &lt;i&gt;local&lt;/i&gt; tool. This page is an Imp Fiddle itself. You may open it in &lt;a href="#edit"&gt;edit mode&lt;/a&gt; to see Imp Fiddle in action. Scroll down to see more.&lt;/big&gt;&lt;/p&gt;
+
+&lt;p class="indented"&gt;&lt;img src="fiddler.png"&gt;&lt;/p&gt;
+
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Live HTML, CSS and JS playground&lt;/li&gt;
+&lt;li&gt;Fully local, no server required&lt;/li&gt;
+&lt;li&gt;Results can be saved locally&lt;/li&gt;
+&lt;li&gt;Set up custom HTML in HEAD, SEO tags and publish to your own hosting&lt;/li&gt;
+&lt;li&gt;Can display only resulted HTML (like this page), &lt;i&gt;without loading an editor&lt;/i&gt;. Only YOUR code.&lt;/li&gt;
+&lt;li&gt;You may force view or edit mode as you wish&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;In action&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="d3_test.html"&gt;D3 demo&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="vega_lite_api.html"&gt;Vega Lite API + data attachment + view mode&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;footer&gt;&lt;small&gt;Powered by Imp Fiddle&lt;/small&gt;&lt;/footer&gt;
+
+&lt;/div&gt;  </script>
+</body>
+</html>

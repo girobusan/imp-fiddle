@@ -18,7 +18,7 @@ const econfig = {
 
 module.exports = function (env, argv) {
 
-  let builddir = 'dist' ; //argv.mode== 'dist' ; //? 'dist' : 'test';
+  let builddir = argv.mode== 'production'  ? 'dist' : 'test';
 
   return {
     //externals: ["fs"],
