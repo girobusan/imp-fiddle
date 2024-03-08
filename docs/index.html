@@ -37,23 +37,33 @@
   "DOMContentLoaded" , 
   function(){
       const p = window.location.protocol;
+      const doEdit = function(){
+
+          console.log("Loading editor")
+          const s = document.createElement("script");
+          s.src =  'fiddler.js'
+          document.head.appendChild(s);
+      }
+      /* console.log("Loaded, proto" , p , "window name" , wn) */
       if(window.location.hash==="#view"){
         return;
       }
-      if(p.startsWith("http") && 
-        window.settings.webViewed==="result" &&
-        window.location.hash !== "#edit"
-        ){
+
+      if( window.location.hash==="#edit"){
+        doEdit();
         return;
       }
 
-      if(p=='file:' || window.location.hash=="#edit"){
-          console.log("Loading editor")
-          const s = document.createElement("script");
-          s.src =  "fiddler.js"
-          document.head.appendChild(s);
+      //no hash
+
+      if(window.settings.webViewed==="viewonly" ){
+        return;
       }
 
+      if(p.startsWith("http") && window.settings.webViewed==="result"){
+        return;
+      }
+      doEdit();
 })
   </script>
   <script id="customJS">//I've' wrote some example JS
@@ -146,6 +156,7 @@ svg{
     </a>
 
 <div id="container">
+← <a href="https://girobusan.github.io/">Girobusan</a>
 <h1>👿🎻<br>Imp Fiddle</h1>
 <p><big>Imp Fiddle is a JSFiddle-like, but <i>local</i> tool. This page is an Imp Fiddle itself. You may open it in <a href="#edit">edit mode</a> to see Imp Fiddle in action. Scroll down to see more.</big></p>
 
@@ -175,6 +186,7 @@ svg{
     &lt;/a&gt;
 
 &lt;div id="container"&gt;
+← &lt;a href="https://girobusan.github.io/"&gt;Girobusan&lt;/a&gt;
 &lt;h1&gt;👿🎻&lt;br&gt;Imp Fiddle&lt;/h1&gt;
 &lt;p&gt;&lt;big&gt;Imp Fiddle is a JSFiddle-like, but &lt;i&gt;local&lt;/i&gt; tool. This page is an Imp Fiddle itself. You may open it in &lt;a href="#edit"&gt;edit mode&lt;/a&gt; to see Imp Fiddle in action. Scroll down to see more.&lt;/big&gt;&lt;/p&gt;
 
