@@ -54,7 +54,7 @@
   "author": "",
   "keywords": "",
   "autoRun": true,
-  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js",
+  "editor": "",
   "webViewed": "result"
 }
   </script>
@@ -77,7 +77,7 @@
       if(p=='file:' || window.location.hash=="#edit"){
           console.log("Loading editor")
           const s = document.createElement("script");
-          s.src =  "https://cdn.jsdelivr.net/gh/girobusan/imp-fiddle@latest/dist/fiddler.js"
+          s.src =  "fiddler.js"
           document.head.appendChild(s);
       }
 
@@ -188,8 +188,6 @@ h1{
     max-width: 1000px !important;
     margin: 0;
   }
-
-
 </style>
 </head>
 <body>
